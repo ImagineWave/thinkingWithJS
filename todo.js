@@ -5,6 +5,9 @@ const addButton = document.getElementById("add");
 const removeButton = document.getElementById("remove");
 const upButton = document.getElementById("up");
 const downButton = document.getElementById("down");
+const colorInput = document.getElementById("color");
+const colorButton = document.getElementById("colorButton");
+const colorDiv = document.getElementById("colorDiv");
 
 const todoList = document.getElementById("todoList");
 const tableDiv = document.getElementById("tableDiv");
@@ -30,9 +33,7 @@ document.addEventListener('change', function updateCheckbox(event) {
     }
 })
 
-
-
-tableDiv.onclick = function addItem( event){
+tableDiv.onclick = function selectElement( event){
     let target = event.target;
     if (target.tagName === 'P' && target.parentElement.parentElement.id === 'todoList'){
         if (SelectedElement === target){
@@ -55,7 +56,9 @@ tableDiv.onclick = function addItem( event){
 
 }
 
-
+colorButton.onclick = function setColor(){
+    SelectedElement.style.color =colorInput.value;
+}
 addButton.onclick = function addItem() {
     let inputText = prompt("Добавление новой цели", "");
     let text;
@@ -175,6 +178,9 @@ function hideButtons(){
     removeButton.style.display = 'none';
     downButton.style.display = 'none';
     upButton.style.display = 'none';
+    //colorInput.style.display = 'none';
+    //colorButton.style.display = 'none';
+    colorDiv.style.display = 'none';
 }
 function showButtons(){
     //editButton removeButton upButton downButton colorInput
@@ -182,5 +188,7 @@ function showButtons(){
     removeButton.style.display = 'block';
     downButton.style.display = 'block';
     upButton.style.display = 'block';
+    //colorInput.style.display = 'block';
+    colorDiv.style.display = 'block';
 }
 
