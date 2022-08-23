@@ -64,6 +64,8 @@
 }
 .selected{
     color: aqua;
+    font-size: 24px;
+    text-shadow: #000000 5px 0 10px;
 }
 
 

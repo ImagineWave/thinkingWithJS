@@ -1,6 +1,6 @@
 "use strict";
 
-const editButton = document.getElementById("edit");
+const editButton = document.getElementById("edit"); // editButton removeButton upButton downButton colorInput
 const addButton = document.getElementById("add");
 const removeButton = document.getElementById("remove");
 const upButton = document.getElementById("up");
@@ -12,16 +12,13 @@ const tableDiv = document.getElementById("tableDiv");
 let SelectedElement;
 
 let todo = JSON.parse(localStorage.getItem('myTodo')) ?? [
-    {text: "Встать", done: true},
-    {text: "Сделать зарядку", done: false},
-    {text: "Пойти завтракать", done: false}
+    {text: "Встать", done: true, color:"#ffffff"},
+    {text: "Сделать зарядку", done: false, color:"#ffffff"},
+    {text: "Пойти завтракать", done: false, color:"#ffffff"}
 ];
-// let todo=[
-//     {text: "Встать", done: true},
-//     {text: "Сделать зарядку", done: false},
-//     {text: "Пойти завтракать", done: false}
-// ]
 render();
+hideButtons();
+
 
 document.addEventListener('change', function updateCheckbox(event) {
     let chk = event.target
@@ -29,6 +26,7 @@ document.addEventListener('change', function updateCheckbox(event) {
     if (chk.tagName === 'INPUT' && chk.type === 'checkbox') {
         todo[chk.parentElement.id].done = chk.checked;
         render();
+
     }
 })
 
@@ -40,15 +38,17 @@ tableDiv.onclick = function addItem( event){
         if (SelectedElement === target){
             SelectedElement.classList.remove('selected');
             SelectedElement = null;
+            hideButtons();
             return;
 
         } else {
             if(SelectedElement!=null){
                 SelectedElement.classList.remove('selected');
+                hideButtons();
             }
             SelectedElement = target;
             target.classList.add('selected');
-
+            showButtons();
         }
     }
 
@@ -112,38 +112,8 @@ function render(){
         todoList.append(addToLi);
     }
     localStorage.setItem('myTodo', JSON.stringify(todo));
+    hideButtons();
 }
-function renderMove(){
-    todoList.replaceChildren();
-    for(let i = 0; i<todo.length; i++){
-        let addToLi = document.createElement('li');
-        let text = "";
-        let checked = "";
-
-        if(todo[i].done){
-            checked ="checked";
-        }
-
-        text = text+("<p>"+todo[i].text+"</p>");
-        text = text+("<input type='checkbox' "+checked+" id='"+i+"'>");
-        addToLi.innerHTML = text;
-        if(SelectedElement.innerText === todo[i].text){
-            addToLi.classList.add('selected');
-
-        }
-        addToLi.id = i;
-        todoList.append(addToLi);
-    }
-    localStorage.setItem('myTodo', JSON.stringify(todo));
-}
-
-function updateCheckboxData(){
-    for (let i = 0; i<todo.length; i++){
-        let item = document.getElementById("item"+i);
-
-    }
-}
-
 function removeSelected(){
 
     if(SelectedElement != null){
@@ -198,8 +168,19 @@ function moveSelectedLeft(){
     } else {
         alert("Сначала выделите элемент");
     }
-
-
 }
-
+function hideButtons(){
+    //editButton removeButton upButton downButton colorInput
+    editButton.style.display = 'none';
+    removeButton.style.display = 'none';
+    downButton.style.display = 'none';
+    upButton.style.display = 'none';
+}
+function showButtons(){
+    //editButton removeButton upButton downButton colorInput
+    editButton.style.display = 'block';
+    removeButton.style.display = 'block';
+    downButton.style.display = 'block';
+    upButton.style.display = 'block';
+}
 
