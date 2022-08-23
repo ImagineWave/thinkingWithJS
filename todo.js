@@ -58,6 +58,8 @@ tableDiv.onclick = function selectElement( event){
 
 colorButton.onclick = function setColor(){
     SelectedElement.style.color =colorInput.value;
+    todo[SelectedElement.parentElement.id].color = colorInput.value;
+    render();
 }
 addButton.onclick = function addItem() {
     let inputText = prompt("Добавление новой цели", "");
@@ -112,6 +114,7 @@ function render(){
 
         addToLi.innerHTML = text;
         addToLi.id = i;
+        addToLi.style.color = todo[i].color;
         todoList.append(addToLi);
     }
     localStorage.setItem('myTodo', JSON.stringify(todo));
